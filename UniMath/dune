@@ -1,0 +1,22 @@
+
+(include_subdirs qualified)
+
+(rocq.theory
+ (name UniMath)
+ (package coq-unimath)
+ ;; is this still the package name in 2026?
+ (theories Ltac2)
+ (rocqdoc_flags
+        :standard
+        -interpolate
+        --charset utf-8)
+ (flags :standard
+        -noinit
+        -indices-matter
+        -w -notation-overridden))
+
+(rule
+ (deps (source_tree .))
+ (action
+  (with-stdout-to All.v
+   (run %{project_root}/util/generate-exports UniMath "%{deps}"))))
